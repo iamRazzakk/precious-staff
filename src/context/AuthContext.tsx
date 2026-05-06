@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 
 interface AdminUser {
   name: string
@@ -10,11 +10,15 @@ interface AdminUser {
 interface AuthContextValue {
   user: AdminUser | null
   isAuthenticated: boolean
+  hasOnboarded: boolean
   login: (email: string, password: string) => Promise<void>
   logout: () => void
+  completeOnboarding: () => void
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
+
+const ONBOARDING_KEY = 'precious-staff:hasOnboarded'
 
 const DEFAULT_USER: AdminUser = {
   name: 'Maria Santos',
@@ -25,6 +29,15 @@ const DEFAULT_USER: AdminUser = {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AdminUser | null>(null)
+  const [hasOnboarded, setHasOnboarded] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false
+    return window.localStorage.getItem(ONBOARDING_KEY) === 'true'
+  })
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    window.localStorage.setItem(ONBOARDING_KEY, hasOnboarded ? 'true' : 'false')
+  }, [hasOnboarded])
 
   const login = async (_email: string, _password: string): Promise<void> => {
     // Mock authentication — accepts any email/password
@@ -36,8 +49,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null)
   }
 
+  const completeOnboarding = () => {
+    setHasOnboarded(true)
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        hasOnboarded,
+        login,
+        logout,
+        completeOnboarding,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

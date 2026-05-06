@@ -12,10 +12,11 @@ import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'
 import ClockInOutPage from '@/pages/clock-in-out/ClockInOutPage'
 import MySchedulePage from '@/pages/my-schedule/MySchedulePage'
 import TaskChecklistPage from '@/pages/task-checklist/TaskChecklistPage'
-import DailyTasksPage from '@/pages/daily-tasks/DailyTasksPage'
 import HoursWorkedPage from '@/pages/hours-worked/HoursWorkedPage'
 import MyProfilePage from '@/pages/my-profile/MyProfilePage'
 import NotificationsPage from '@/pages/notifications/NotificationsPage'
+import ChatPage from '@/pages/chat/ChatPage'
+import OnboardingPage from '@/pages/onboarding/OnboardingPage'
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,16 @@ const AppRoutes = () => {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/verify-otp" element={<VerifyOtpPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+      {/* Onboarding gate — authed but pre-onboarding */}
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoute requireOnboarded={false}>
+            <OnboardingPage />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Protected routes - nested under DashboardLayout */}
       <Route
@@ -37,8 +48,8 @@ const AppRoutes = () => {
         <Route path="/clock-in-out" element={<ClockInOutPage />} />
         <Route path="/my-schedule" element={<MySchedulePage />} />
         <Route path="/task-checklist" element={<TaskChecklistPage />} />
-        <Route path="/daily-tasks" element={<DailyTasksPage />} />
         <Route path="/hours-worked" element={<HoursWorkedPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/my-profile" element={<MyProfilePage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
       </Route>

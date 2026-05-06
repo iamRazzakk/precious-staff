@@ -22,80 +22,59 @@ interface Category {
 
 const CATEGORIES: Category[] = [
   {
-    key: 'personal-care',
-    title: 'Personal Care',
+    key: 'morning-routine',
+    title: 'Morning Routine',
     tasks: [
-      { id: 'pc-1', label: 'Bathing/shower assistance' },
-      { id: 'pc-2', label: 'Dressing assistance' },
-      { id: 'pc-3', label: 'Grooming & oral hygiene' },
-      { id: 'pc-4', label: 'Toileting assistance' },
-      { id: 'pc-5', label: 'Skin care & positioning' },
+      { id: 'mr-1', label: 'Wake-up assistance' },
+      { id: 'mr-2', label: 'Bathing/hygiene' },
+      { id: 'mr-3', label: 'Dressing' },
+      { id: 'mr-4', label: 'Breakfast prep' },
+      { id: 'mr-5', label: 'Morning medications' },
+      { id: 'mr-6', label: 'Vital signs check' },
     ],
   },
   {
-    key: 'medication',
-    title: 'Medication',
+    key: 'midday-care',
+    title: 'Midday Care',
     tasks: [
-      { id: 'med-1', label: 'Morning medication' },
-      { id: 'med-2', label: 'Afternoon medication' },
-      { id: 'med-3', label: 'Evening medication' },
-      { id: 'med-4', label: 'PRN medications as needed' },
-      { id: 'med-5', label: 'Medication log update' },
+      { id: 'mc-1', label: 'Lunch preparation' },
+      { id: 'mc-2', label: 'Medication administration' },
+      { id: 'mc-3', label: 'Mobility exercises' },
+      { id: 'mc-4', label: 'Companionship activity' },
+      { id: 'mc-5', label: 'Fluid intake monitoring' },
     ],
   },
   {
-    key: 'nutrition',
-    title: 'Nutrition',
+    key: 'afternoon',
+    title: 'Afternoon',
     tasks: [
-      { id: 'nut-1', label: 'Breakfast preparation' },
-      { id: 'nut-2', label: 'Lunch preparation' },
-      { id: 'nut-3', label: 'Dinner preparation' },
-      { id: 'nut-4', label: 'Hydration check' },
-      { id: 'nut-5', label: 'Snack & supplement intake' },
+      { id: 'af-1', label: 'Afternoon snack' },
+      { id: 'af-2', label: 'Light housekeeping' },
+      { id: 'af-3', label: 'Laundry' },
+      { id: 'af-4', label: 'Appointment transport' },
+      { id: 'af-5', label: 'Outdoor activity' },
     ],
   },
   {
-    key: 'mobility',
-    title: 'Mobility',
+    key: 'evening',
+    title: 'Evening',
     tasks: [
-      { id: 'mob-1', label: 'Transfer assistance (bed to chair)' },
-      { id: 'mob-2', label: 'Walking / ambulation support' },
-      { id: 'mob-3', label: 'Range of motion exercises' },
-      { id: 'mob-4', label: 'Wheelchair positioning' },
-      { id: 'mob-5', label: 'Fall prevention check' },
+      { id: 'ev-1', label: 'Dinner preparation' },
+      { id: 'ev-2', label: 'Evening medications' },
+      { id: 'ev-3', label: 'Evening hygiene' },
+      { id: 'ev-4', label: 'Bedtime preparation' },
+      { id: 'ev-5', label: 'End-of-day documentation' },
     ],
   },
   {
-    key: 'household',
-    title: 'Household',
+    key: 'ongoing',
+    title: 'Ongoing',
     tasks: [
-      { id: 'hh-1', label: 'Light housekeeping' },
-      { id: 'hh-2', label: 'Laundry & linens' },
-      { id: 'hh-3', label: 'Meal cleanup & dishes' },
-      { id: 'hh-4', label: 'Trash removal' },
-      { id: 'hh-5', label: 'Bedroom tidying' },
-    ],
-  },
-  {
-    key: 'companionship',
-    title: 'Companionship',
-    tasks: [
-      { id: 'comp-1', label: 'Social conversation' },
-      { id: 'comp-2', label: 'Recreational activity' },
-      { id: 'comp-3', label: 'Outdoor walk / fresh air' },
-      { id: 'comp-4', label: 'Reading or music' },
-      { id: 'comp-5', label: 'Family communication' },
-    ],
-  },
-  {
-    key: 'documentation',
-    title: 'Documentation',
-    tasks: [
-      { id: 'doc-1', label: 'Care notes update' },
-      { id: 'doc-2', label: 'Vital signs log' },
-      { id: 'doc-3', label: 'Incident report (if any)' },
-      { id: 'doc-4', label: 'Family update message' },
-      { id: 'doc-5', label: 'End-of-shift summary' },
+      { id: 'on-1', label: 'Fall prevention checks' },
+      { id: 'on-2', label: 'Skin integrity checks' },
+      { id: 'on-3', label: 'Communication with family' },
+      { id: 'on-4', label: 'Incident reporting' },
+      { id: 'on-5', label: 'Care plan adherence' },
     ],
   },
 ]
@@ -107,59 +86,10 @@ interface AddTaskFormValues {
   shiftId: string
 }
 
-const TASK_NAME_GROUPS: { title: string; tasks: string[] }[] = [
-  {
-    title: 'Morning Routine',
-    tasks: [
-      'Wake-up assistance',
-      'Bathing/hygiene',
-      'Dressing',
-      'Breakfast prep',
-      'Morning medications',
-      'Vital signs check',
-    ],
-  },
-  {
-    title: 'Midday Care',
-    tasks: [
-      'Lunch preparation',
-      'Medication administration',
-      'Mobility exercises',
-      'Companionship activity',
-      'Fluid intake monitoring',
-    ],
-  },
-  {
-    title: 'Afternoon',
-    tasks: [
-      'Afternoon snack',
-      'Light housekeeping',
-      'Laundry',
-      'Appointment transport',
-      'Outdoor activity',
-    ],
-  },
-  {
-    title: 'Evening',
-    tasks: [
-      'Dinner preparation',
-      'Evening medications',
-      'Evening hygiene',
-      'Bedtime preparation',
-      'End-of-day documentation',
-    ],
-  },
-  {
-    title: 'Ongoing',
-    tasks: [
-      'Fall prevention checks',
-      'Skin integrity checks',
-      'Communication with family',
-      'Incident reporting',
-      'Care plan adherence',
-    ],
-  },
-]
+const TASK_NAME_GROUPS: { title: string; tasks: string[] }[] = CATEGORIES.map((cat) => ({
+  title: cat.title,
+  tasks: cat.tasks.map((t) => t.label),
+}))
 
 const CLIENT_OPTIONS = [
   { value: 'cl-1', label: 'Eleanor Mitchell' },
@@ -375,7 +305,7 @@ const TaskChecklistPage = () => {
           bordered={false}
           expandIconPosition="end"
           className="bg-transparent"
-          defaultActiveKey={['personal-care']}
+          defaultActiveKey={['morning-routine']}
           items={categories.map((cat) => {
             const done = cat.tasks.filter((t) => statuses[t.id] === 'complete').length
             return {

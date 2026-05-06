@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext'
 import { colors } from '@/utils/colors'
 
 const LoginPage = () => {
-  const { login } = useAuth()
+  const { login, hasOnboarded } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('admin@goodniva.com')
   const [password, setPassword] = useState('••••••••')
@@ -25,7 +25,7 @@ const LoginPage = () => {
     setLoading(true)
     try {
       await login(email, password)
-      navigate('/clock-in-out')
+      navigate(hasOnboarded ? '/clock-in-out' : '/onboarding')
     } catch {
       setError('Invalid email or password')
     } finally {

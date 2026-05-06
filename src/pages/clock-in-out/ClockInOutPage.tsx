@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Select } from 'antd'
-import { Clock, MapPin, LogIn, LogOut, Activity, Info, Timer } from 'lucide-react'
+import { Clock, MapPin, LogIn, LogOut, Activity, Info, Timer, Calendar } from 'lucide-react'
 import { colors } from '@/utils/colors'
 import { useToast } from '@/context/ToastContext'
 
@@ -11,6 +11,19 @@ const formatDuration = (ms: number) => {
   const s = totalSec % 60
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
+
+const formatLiveTime = (d: Date) =>
+  d.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  })
+
+const formatLiveDate = (d: Date) => ({
+  weekday: d.toLocaleDateString('en-US', { weekday: 'long' }),
+  date: d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+})
 
 type GpsStatus = 'idle' | 'requesting' | 'granted' | 'denied' | 'unavailable'
 
@@ -48,6 +61,12 @@ const ClockInOutPage = () => {
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null)
   const [activeShift, setActiveShift] = useState<ActiveShift | null>(null)
   const [now, setNow] = useState(() => Date.now())
+  const [currentTime, setCurrentTime] = useState<Date>(() => new Date())
+
+  useEffect(() => {
+    const id = window.setInterval(() => setCurrentTime(new Date()), 1000)
+    return () => window.clearInterval(id)
+  }, [])
 
   useEffect(() => {
     if (!activeShift) return
@@ -159,6 +178,31 @@ const ClockInOutPage = () => {
           <div className="flex items-center gap-2 mb-5">
             <Clock size={20} style={{ color: colors.primary }} />
             <h2 className="text-xl font-bold text-text-primary m-0">Clock In / Out</h2>
+          </div>
+
+          <div
+            className="rounded-xl px-5 py-4 mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+            style={{
+              background: `linear-gradient(135deg, ${colors.primary} 0%, #0f2540 100%)`,
+            }}
+          >
+            <div className="flex items-center gap-3 text-white">
+              <Calendar size={20} />
+              <div>
+                <div className="text-sm font-semibold opacity-90">
+                  {formatLiveDate(currentTime).weekday}
+                </div>
+                <div className="text-base font-bold">
+                  {formatLiveDate(currentTime).date}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-white">
+              <Clock size={20} />
+              <div className="text-3xl font-bold tabular-nums tracking-tight">
+                {formatLiveTime(currentTime)}
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">

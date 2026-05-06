@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu, type MenuProps } from 'antd'
-import { CalendarDays, ListChecks, ClipboardList, Clock, UserRound, LogOut, TimerReset } from 'lucide-react'
+import { CalendarDays, ListChecks, Clock, UserRound, LogOut, TimerReset, MessageSquare } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 
 type MenuItem = Required<MenuProps>['items'][number]
@@ -10,8 +10,8 @@ const NAV_ITEMS: MenuItem[] = [
   { key: '/clock-in-out', icon: <TimerReset size={18} />, label: 'Clock In/Out' },
   { key: '/my-schedule', icon: <CalendarDays size={18} />, label: 'My Schedule' },
   { key: '/task-checklist', icon: <ListChecks size={18} />, label: 'Task Checklist' },
-  { key: '/daily-tasks', icon: <ClipboardList size={18} />, label: 'Daily Tasks' },
   { key: '/hours-worked', icon: <Clock size={18} />, label: 'Hours Worked' },
+  { key: '/chat', icon: <MessageSquare size={18} />, label: 'Chat' },
   { key: '/my-profile', icon: <UserRound size={18} />, label: 'My Profile' },
 ]
 
